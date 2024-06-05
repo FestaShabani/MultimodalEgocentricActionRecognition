@@ -1,6 +1,6 @@
-action: save # train or test
-name: saved_feat_I3D
-split: test
+action: train # train or test
+name: trainClassifier
+split: train
 resume_from: ./saved_models/I3D_SourceOnlyD1
 
 save:
@@ -9,6 +9,20 @@ save:
     RGB: True
   num_frames_per_clip:
     RGB: 10
+
+train:
+  num_iter: ??
+  num_clips: 5
+  num_frames_per_clip: ??
+  dense_sampling:
+    RGB: True
+  num_frames_per_clip:
+    RGB: 10 
+
+test:
+  num_clips: ??
+  num_frames_per_clip: ??
+
 
 dataset:
   annotations_path: train_val
@@ -20,13 +34,14 @@ dataset:
   RGB:
     data_path: ../ek_data/frames
     tmpl: "img_{:010d}.jpg"
+    features_name: ?? #can be removed later if problematic
   Event:
     rgb4e: 6
 
 # these are the action recognition models for each modality
 models:
   RGB:
-    model: I3D
+    model: ??
     dropout: 0.5
     normalize: False
     resolution: 224
