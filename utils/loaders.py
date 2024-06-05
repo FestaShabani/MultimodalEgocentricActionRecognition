@@ -7,6 +7,11 @@ from PIL import Image
 import os
 import os.path
 from utils.logger import logger
+import numpy as np 
+import math
+import torch
+from .video_record import VideoRecord
+
 
 class EpicKitchensDataset(data.Dataset, ABC):
     def __init__(self, split, modalities, mode, dataset_conf, num_frames_per_clip, num_clips, dense_sampling,
@@ -55,7 +60,7 @@ class EpicKitchensDataset(data.Dataset, ABC):
             self.model_features = None
             for m in self.modalities:
                 # load features for each modality
-                model_features = pd.DataFrame(pd.read_pickle(os.path.join("saved_features",
+                model_features = pd.DataFrame(pd.read_pickle(os.path.join("extracted_features",
                                                                           self.dataset_conf[m].features_name + "_" +
                                                                           pickle_name))['features'])[["uid", "features_" + m]]
                 if self.model_features is None:
